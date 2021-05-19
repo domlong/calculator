@@ -36,11 +36,12 @@ function addToDisplay() {
 
 function setOperator(){
     operating = true;
-    if(memory != ''){
+    if(memory != '' && !eq){
         evaluate();
     }
     currentOperator = this.id;
     memory = Number(display.textContent);
+    eq = false;
 }
 
 function refresh() {
@@ -50,29 +51,28 @@ function refresh() {
     console.clear();
 }
 
-/* function updateDisplay(){
-    display.textContent = screen;
-} */
-
 function evaluate() {
     operand = Number(display.textContent);
     memory = operate(currentOperator, memory, operand);
     display.textContent = memory;
-    //currentOperator = '';
 }
 
 function equals() {
     evaluate();
+    memory = Number(display.textContent);
+    eq = true;
 }
 function showGoodStuff() {
     console.log({'memory': memory, 'operator': currentOperator, 'operand': operand, 'clicked': this.textContent});
 }
 
-const display = document.querySelector('#display');
 let memory='';
 let operand;
 let operating = false;
+let eq = false;
 let currentOperator = '';
+
+const display = document.querySelector('#display');
 
 digits = document.querySelectorAll('.digit')
 digits.forEach(digit => digit.addEventListener('click',addToDisplay));
@@ -85,7 +85,6 @@ equal.addEventListener('click', equals);
 
 buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click',showGoodStuff));
-
 
 clear = document.querySelector('#clear');
 clear.addEventListener('click',refresh)
