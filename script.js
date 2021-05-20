@@ -55,6 +55,7 @@ function clear() {
 }
 
 function evaluate() {
+    operating = true;
     if(currentOperator === '') return;
     operand = Number(display.textContent);
 
