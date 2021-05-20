@@ -1,0 +1,48 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+    column-gap: 8px;
+    row-gap: 8px;
+    
+}
+
+#screen {
+    grid-column: 1/5;
+    background-color: #f1f3f4;
+    display:flex;
+    align-items: center;
+}
+
+#display {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2vw;
+
+    width: 80%;
+}
+
+#clear {
+    grid-column-start: 3;
+}
+
+.digit {
+    background-color: #f1f3f4;
+}
+
+.operator {
+    background-color: #dadce0;
+}
+
+#equals {
+    background-color: #6cb1ee;
+}
+
+#clear, #delete {
+    background-color: #bfe1ff;
+}
+
+button {
+    border-radius: 4px;
+}

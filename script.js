@@ -11,7 +11,6 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b == 0) return 'dont u dare';
     return a / b;
 }
 
@@ -20,10 +19,12 @@ function operate(operator, a, b) {
         case 'add': return add(a,b);
         case 'subtract': return subtract(a,b);
         case 'multiply': return multiply(a,b);
-        case 'divide': return divide(a,b);
+        case 'divide': return divide(a,b)
         default: return 'oopsy'
     }
 }
+
+
 
 function addToDisplay() {
     if(operating) {
@@ -49,12 +50,28 @@ function refresh() {
     memory = '';
     operand = '';
     console.clear();
+    buttons.forEach((btn) => btn.disabled=false);
 }
 
 function evaluate() {
+    if(currentOperator === '') return;
     operand = Number(display.textContent);
+
+    if (currentOperator === 'divide' && operand == 0) {
+        divBy0();
+        return;
+    }   
     memory = operate(currentOperator, memory, operand);
+    if (typeof(memory) == 'number') {
+        memory = round(memory, 5)
+    }
     display.textContent = memory;
+}
+
+function divBy0() {
+    display.textContent = 'dont u dare';
+    buttons.forEach((btn) => btn.disabled=true);
+    clear.disabled = false;
 }
 
 function equals() {
@@ -64,6 +81,10 @@ function equals() {
 }
 function showGoodStuff() {
     console.log({'memory': memory, 'operator': currentOperator, 'operand': operand, 'clicked': this.textContent});
+}
+
+function round(num, places) {
+    return Math.round(num * 10 ** places) / 10 ** places; 
 }
 
 let memory='';
