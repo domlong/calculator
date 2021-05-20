@@ -1,9 +1,9 @@
 .container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     margin: 0 auto;
     width: 300px;
-    height: 300px;
+    height: 350px;
     column-gap: 8px;
     row-gap: 8px;
     
@@ -14,13 +14,17 @@
     background-color: #f1f3f4;
     display:flex;
     align-items: center;
+    justify-content: space-around;
 }
 
 #display {
+    width: 90%;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 2vw;
-
-    width: 80%;
+    font-size: max(32px,1.6vw);
+    
+    text-align: right;
+    /* word-wrap: break-word; */
+    overflow: hidden;
 }
 
 #clear {
@@ -44,5 +48,8 @@
 }
 
 button {
-    border-radius: 4px;
+    border-radius: 10px;
+    border: 2px solid black;
+    font-size: 16px;
+    font-weight: bold;
 }
