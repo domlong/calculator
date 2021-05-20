@@ -32,6 +32,8 @@ function addToDisplay() {
         operating = false;
     }
     if(display.textContent == 0) display.textContent = '';
+
+    if(this.textContent === '.' && display.textContent.includes('.')) return;
     display.textContent += this.textContent;
 }
 
@@ -45,11 +47,10 @@ function setOperator(){
     eq = false;
 }
 
-function refresh() {
+function clear() {
     display.textContent = 0;
     memory = '';
     operand = '';
-    console.clear();
     buttons.forEach((btn) => btn.disabled=false);
 }
 
@@ -79,8 +80,15 @@ function equals() {
     memory = Number(display.textContent);
     eq = true;
 }
-function showGoodStuff() {
-    console.log({'memory': memory, 'operator': currentOperator, 'operand': operand, 'clicked': this.textContent});
+
+function deleteLast() {
+    if (display.textContent.length) {
+        display.textContent = display.textContent.slice(0,display.textContent.length-1);
+    }
+    if (!display.textContent.length) {
+        display.textContent = 0;
+    }
+    memory = Number(display.textContent);
 }
 
 function round(num, places) {
@@ -95,17 +103,19 @@ let currentOperator = '';
 
 const display = document.querySelector('#display');
 
-digits = document.querySelectorAll('.digit')
+const digits = document.querySelectorAll('.digit')
 digits.forEach(digit => digit.addEventListener('click',addToDisplay));
 
-operators = document.querySelectorAll('.operator')
+const operators = document.querySelectorAll('.operator')
 operators.forEach(operator => operator.addEventListener('click',setOperator));
 
-equal = document.querySelector('#equals')
+const equal = document.querySelector('#equals')
 equal.addEventListener('click', equals);
 
-buttons = document.querySelectorAll('button');
-buttons.forEach(button => button.addEventListener('click',showGoodStuff));
+const buttons = document.querySelectorAll('button');
 
-clear = document.querySelector('#clear');
-clear.addEventListener('click',refresh)
+const clr = document.querySelector('#clear');
+clr.addEventListener('click',clear)
+
+const del = document.querySelector('#delete');
+del.addEventListener('click',deleteLast)
